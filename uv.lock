@@ -1,7 +1,20 @@
 version = 1
+revision = 3
 requires-python = ">=3.11"
 
 [[package]]
 name = "python-template"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "romkan" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "romkan", specifier = ">=0.2.1" }]
+
+[[package]]
+name = "romkan"
+version = "0.2.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/13/e6/5e2b4a6f37e10a9bbd686c315b0f329c3f0afae30f58be8c552ebaea0826/romkan-0.2.1.tar.gz", hash = "sha256:a530245a38969704700e0ca8f9cb7158c4ede91c5fd1e24677dbe814cf91f33b", size = 10743, upload-time = "2013-02-26T14:44:15.825Z" }

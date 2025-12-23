@@ -16,3 +16,26 @@ deploymentTarget = "cloudrun"
 
 [agent]
 expertMode = true
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Demo Romkan"
+
+[[workflows.workflow]]
+name = "Demo Romkan"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python demo_romkan.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
