@@ -2,7 +2,11 @@ import os
 import sys
 import subprocess
 
+def clear_screen():
+    os.system('clear' if os.name == 'posix' else 'cls')
+
 def afficher_menu():
+    clear_screen()
     print("\n" + "=" * 50)
     print("   OUTILS JAPONAIS - MENU PRINCIPAL")
     print("=" * 50)
