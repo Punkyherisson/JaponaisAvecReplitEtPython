@@ -7,9 +7,9 @@ def clear_screen():
 
 def afficher_menu():
     clear_screen()
-    print("\n" + "=" * 50)
-    print("   OUTILS JAPONAIS - MENU PRINCIPAL")
-    print("=" * 50)
+    print("\n" + "=" * 55)
+    print("   FAIRE DU JAPONAIS AVEC REPLIT ET PYTHON")
+    print("=" * 55)
     print("\n  1. Demo Romkan (conversions romaji/kana)")
     print("  2. IME Japonais (clavier japonais)")
     print("  3. Pykakasi (lecture des kanji)")

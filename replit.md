@@ -1,15 +1,25 @@
-# Projet Romkan - Conversion Japonais
+# Faire du Japonais avec Replit et Python
 
 ## Vue d'ensemble
-Démonstration de la bibliothèque Python `romkan` pour la conversion entre romaji (caractères latins) et les écritures japonaises (hiragana/katakana).
+Une suite d'outils Python pour apprendre et pratiquer le japonais. Ce projet rassemble plusieurs bibliothèques pour la conversion de caractères, la lecture des kanji, la traduction et l'utilisation d'un dictionnaire japonais-anglais.
 
 ## Structure du projet
 - `menu.py` - Menu principal (point d'entrée)
-- `demo_romkan.py` - Script de démonstration des fonctionnalités de romkan
-- `ime_japonais.py` - Clavier japonais (romaji vers hiragana/katakana)
+- `demo_romkan.py` - Conversion romaji vers hiragana/katakana
+- `ime_japonais.py` - Clavier japonais (taper en romaji, obtenir des kana)
 - `demo_pykakasi.py` - Lecture des kanji (conversion kanji vers romaji)
-- `demo_jamdict.py` - Dictionnaire japonais-anglais
+- `demo_jamdict.py` - Dictionnaire japonais-anglais (200 000+ mots)
 - `traducteur_deepl.py` - Traducteur vers le japonais via API DeepL
+
+## Fonctionnalités
+
+| Option | Outil | Description |
+|--------|-------|-------------|
+| 1 | Romkan | Convertir romaji en hiragana/katakana et vice versa |
+| 2 | IME Japonais | Taper du japonais avec un clavier français |
+| 3 | Pykakasi | Lire les kanji (obtenir la prononciation) |
+| 4 | Jamdict | Dictionnaire japonais-anglais avec definitions |
+| 5 | DeepL | Traduire des phrases en japonais |
 
 ## Dépendances
 - Python 3.11
@@ -21,13 +31,12 @@ Démonstration de la bibliothèque Python `romkan` pour la conversion entre roma
 ## Secrets requis
 - `DEEPL_API_KEY` - Clé API DeepL (stockée de façon sécurisée)
 
-## Fonctionnalités
-1. Romaji → Hiragana/Katakana
-2. Hiragana/Katakana → Romaji
-3. Mode IME interactif (frappe lettre par lettre)
-4. Traduction vers le japonais via DeepL
-
 ## Exécution
 ```bash
-python menu.py  # Menu principal avec les 3 options
+python menu.py
 ```
+
+## Commandes utiles dans les outils
+- `:q!` - Revenir au menu principal
+- `:h` - Mode hiragana (dans l'IME)
+- `:k` - Mode katakana (dans l'IME)
