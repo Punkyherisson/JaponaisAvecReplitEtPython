@@ -40,6 +40,17 @@ def mode_interactif():
         if texte == ":q!":
             print("Retour au menu...")
             break
+        
+        if not texte:
+            continue
+        
+        mode_temp = mode
+        if texte.startswith(":h "):
+            mode_temp = "hiragana"
+            texte = texte[3:]
+        elif texte.startswith(":k "):
+            mode_temp = "katakana"
+            texte = texte[3:]
         elif texte == ":h":
             mode = "hiragana"
             print("  Mode: Hiragana")
@@ -49,10 +60,7 @@ def mode_interactif():
             print("  Mode: Katakana")
             continue
         
-        if not texte:
-            continue
-        
-        if mode == "hiragana":
+        if mode_temp == "hiragana":
             resultat = romkan.to_hiragana(texte)
         else:
             resultat = romkan.to_katakana(texte)
