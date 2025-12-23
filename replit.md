@@ -6,23 +6,25 @@ Démonstration de la bibliothèque Python `romkan` pour la conversion entre roma
 ## Structure du projet
 - `demo_romkan.py` - Script de démonstration des fonctionnalités de romkan
 - `ime_japonais.py` - Simulateur d'IME japonais (frappe lettre par lettre)
+- `traducteur_deepl.py` - Traducteur vers le japonais via API DeepL
 
 ## Dépendances
 - Python 3.11
-- romkan (installé via pip)
+- romkan (conversion romaji/kana)
+- requests (appels API)
 
-## Fonctionnalités démontrées
-1. Romaji → Hiragana
-2. Romaji → Katakana
-3. Hiragana → Romaji
-4. Katakana → Romaji
-5. Conversion entre Hiragana et Katakana
-6. Comparaison romanisation Hepburn vs Kunrei
-7. Conversion de phrases complètes
-8. Mode IME interactif (frappe lettre par lettre)
+## Secrets requis
+- `DEEPL_API_KEY` - Clé API DeepL (stockée de façon sécurisée)
+
+## Fonctionnalités
+1. Romaji → Hiragana/Katakana
+2. Hiragana/Katakana → Romaji
+3. Mode IME interactif (frappe lettre par lettre)
+4. Traduction vers le japonais via DeepL
 
 ## Exécution
 ```bash
-python demo_romkan.py
-python ime_japonais.py
+python demo_romkan.py      # Démo romkan
+python ime_japonais.py     # IME interactif
+python traducteur_deepl.py # Traducteur DeepL
 ```
