@@ -8,12 +8,14 @@ Démonstration de la bibliothèque Python `romkan` pour la conversion entre roma
 - `demo_romkan.py` - Script de démonstration des fonctionnalités de romkan
 - `ime_japonais.py` - Clavier japonais (romaji vers hiragana/katakana)
 - `demo_pykakasi.py` - Lecture des kanji (conversion kanji vers romaji)
+- `demo_jamdict.py` - Dictionnaire japonais-anglais
 - `traducteur_deepl.py` - Traducteur vers le japonais via API DeepL
 
 ## Dépendances
 - Python 3.11
 - romkan (conversion romaji/kana)
 - pykakasi (lecture des kanji)
+- jamdict + jamdict-data (dictionnaire japonais)
 - requests (appels API)
 
 ## Secrets requis
