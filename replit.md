@@ -4,6 +4,7 @@
 Démonstration de la bibliothèque Python `romkan` pour la conversion entre romaji (caractères latins) et les écritures japonaises (hiragana/katakana).
 
 ## Structure du projet
+- `menu.py` - Menu principal (point d'entrée)
 - `demo_romkan.py` - Script de démonstration des fonctionnalités de romkan
 - `ime_japonais.py` - Simulateur d'IME japonais (frappe lettre par lettre)
 - `traducteur_deepl.py` - Traducteur vers le japonais via API DeepL
@@ -24,7 +25,5 @@ Démonstration de la bibliothèque Python `romkan` pour la conversion entre roma
 
 ## Exécution
 ```bash
-python demo_romkan.py      # Démo romkan
-python ime_japonais.py     # IME interactif
-python traducteur_deepl.py # Traducteur DeepL
+python menu.py  # Menu principal avec les 3 options
 ```

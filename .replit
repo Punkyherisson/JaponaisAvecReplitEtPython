@@ -27,15 +27,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Traducteur DeepL"
+args = "Menu Japonais"
 
 [[workflows.workflow]]
-name = "Traducteur DeepL"
+name = "Menu Japonais"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python traducteur_deepl.py"
+args = "python menu.py"
 
 [workflows.workflow.metadata]
 outputType = "console"
