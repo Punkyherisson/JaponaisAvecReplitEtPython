@@ -1,64 +1,53 @@
 import romkan
 
-print("=" * 50)
-print("DÉMONSTRATION DE ROMKAN")
-print("=" * 50)
+def afficher_demo():
+    print("=" * 50)
+    print("DÉMONSTRATION DE ROMKAN")
+    print("=" * 50)
 
-print("\n1. ROMAJI → HIRAGANA")
-print("-" * 30)
-mots = ["konnichiwa", "arigatou", "sayounara", "ninja", "samurai", "sushi", "tokyo", "osaka"]
-for mot in mots:
-    print(f"  {mot:15} → {romkan.to_hiragana(mot)}")
+    print("\n1. ROMAJI → HIRAGANA")
+    print("-" * 30)
+    for mot in ["konnichiwa", "arigatou"]:
+        print(f"  {mot:15} → {romkan.to_hiragana(mot)}")
 
-print("\n2. ROMAJI → KATAKANA")
-print("-" * 30)
-mots_katakana = ["koohii", "pasokon", "terebi", "anime", "manga", "ramen"]
-for mot in mots_katakana:
-    print(f"  {mot:15} → {romkan.to_katakana(mot)}")
+    print("\n2. ROMAJI → KATAKANA")
+    print("-" * 30)
+    for mot in ["koohii", "anime"]:
+        print(f"  {mot:15} → {romkan.to_katakana(mot)}")
 
-print("\n3. HIRAGANA → ROMAJI (style Hepburn)")
-print("-" * 30)
-hiragana = ["にんじゃ", "さむらい", "すし", "おはよう", "こんにちは"]
-for h in hiragana:
-    print(f"  {h:10} → {romkan.to_roma(h)}")
+    print("\n3. HIRAGANA → ROMAJI")
+    print("-" * 30)
+    for h in ["にんじゃ", "すし"]:
+        print(f"  {h:10} → {romkan.to_roma(h)}")
 
-print("\n4. KATAKANA → ROMAJI")
-print("-" * 30)
-katakana = ["コーヒー", "パソコン", "テレビ", "アニメ", "マンガ"]
-for k in katakana:
-    print(f"  {k:10} → {romkan.to_roma(k)}")
+    print("\n4. KATAKANA → ROMAJI")
+    print("-" * 30)
+    for k in ["コーヒー", "アニメ"]:
+        print(f"  {k:10} → {romkan.to_roma(k)}")
 
-print("\n5. HIRAGANA ↔ KATAKANA")
-print("-" * 30)
-print("  Hiragana → Katakana:")
-test_hira = "ありがとう"
-print(f"    {test_hira} → {romkan.to_katakana(romkan.to_roma(test_hira))}")
+    print("\n" + "=" * 50)
 
-print("\n  Katakana → Hiragana:")
-test_kata = "アリガトウ"
-print(f"    {test_kata} → {romkan.to_hiragana(romkan.to_roma(test_kata))}")
+def mode_interactif():
+    print("\nMODE INTERACTIF")
+    print("-" * 50)
+    print("Tapez un mot en romaji, hiragana ou katakana")
+    print("Tapez :q! pour revenir au menu principal")
+    print("-" * 50)
+    
+    while True:
+        texte = input("\nVotre texte: ").strip()
+        
+        if texte == ":q!":
+            print("Retour au menu...")
+            break
+        
+        if not texte:
+            continue
+        
+        print(f"\n  Hiragana: {romkan.to_hiragana(texte)}")
+        print(f"  Katakana: {romkan.to_katakana(texte)}")
+        print(f"  Romaji:   {romkan.to_roma(texte)}")
 
-print("\n6. ROMANISATION KUNREI vs HEPBURN")
-print("-" * 30)
-exemples = ["ちゃ", "しゃ", "じゃ", "つ", "ふ"]
-print(f"  {'Kana':8} {'Hepburn':12} {'Kunrei':12}")
-for ex in exemples:
-    hep = romkan.to_hepburn(ex)
-    kun = romkan.to_kunrei(ex)
-    print(f"  {ex:8} {hep:12} {kun:12}")
-
-print("\n7. PHRASES COMPLÈTES")
-print("-" * 30)
-phrases = [
-    "watashi wa nihongo wo benkyou shiteimasu",
-    "hajimemashite douzo yoroshiku",
-    "oishii desu ne"
-]
-for phrase in phrases:
-    print(f"  Romaji:   {phrase}")
-    print(f"  Hiragana: {romkan.to_hiragana(phrase)}")
-    print()
-
-print("=" * 50)
-print("FIN DE LA DÉMONSTRATION")
-print("=" * 50)
+if __name__ == "__main__":
+    afficher_demo()
+    mode_interactif()
