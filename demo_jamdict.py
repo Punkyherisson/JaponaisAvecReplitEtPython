@@ -84,8 +84,13 @@ def mode_interactif():
             print(f"\n  Kanji trouves:")
             for char in result.chars[:5]:
                 meanings = char.meanings(english_only=True)[:3]
-                on_readings = char.on_readings[:2] if char.on_readings else []
-                kun_readings = char.kun_readings[:2] if char.kun_readings else []
+                
+                on_readings = []
+                kun_readings = []
+                if char.rm_groups:
+                    rm = char.rm_groups[0]
+                    on_readings = [str(r) for r in rm.on_readings[:2]] if rm.on_readings else []
+                    kun_readings = [str(r) for r in rm.kun_readings[:2]] if rm.kun_readings else []
                 
                 print(f"\n    {char.literal} ({char.stroke_count} traits)")
                 print(f"      Sens: {', '.join(meanings)}")
