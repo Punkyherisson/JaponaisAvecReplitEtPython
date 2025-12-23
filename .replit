@@ -33,9 +33,9 @@ args = "Demo Romkan"
 name = "Demo Romkan"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python demo_romkan.py"
-
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python ime_japonais.py"

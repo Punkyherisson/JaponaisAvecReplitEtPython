@@ -5,6 +5,7 @@ Démonstration de la bibliothèque Python `romkan` pour la conversion entre roma
 
 ## Structure du projet
 - `demo_romkan.py` - Script de démonstration des fonctionnalités de romkan
+- `ime_japonais.py` - Simulateur d'IME japonais (frappe lettre par lettre)
 
 ## Dépendances
 - Python 3.11
@@ -18,8 +19,10 @@ Démonstration de la bibliothèque Python `romkan` pour la conversion entre roma
 5. Conversion entre Hiragana et Katakana
 6. Comparaison romanisation Hepburn vs Kunrei
 7. Conversion de phrases complètes
+8. Mode IME interactif (frappe lettre par lettre)
 
 ## Exécution
 ```bash
 python demo_romkan.py
+python ime_japonais.py
 ```
