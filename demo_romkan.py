@@ -1,4 +1,44 @@
 import romkan
+import re
+
+def adapter_pour_japonais(texte):
+    """Adapte un mot européen pour qu'il soit prononçable en japonais"""
+    texte = texte.lower()
+    
+    adaptations = [
+        ('mm', 'm'),
+        ('nn', 'n'),
+        ('ll', 'r'),
+        ('l', 'ru'),
+        ('v', 'b'),
+        ('x', 'kusu'),
+        ('q', 'ku'),
+        ('c(?![hi])', 'k'),
+        ('ti', 'chi'),
+        ('tu', 'tsu'),
+        ('si', 'shi'),
+        ('hu', 'fu'),
+        ('th', 's'),
+        ('ph', 'f'),
+    ]
+    
+    for pattern, remplacement in adaptations:
+        texte = re.sub(pattern, remplacement, texte)
+    
+    if texte and texte[-1] in 'bcdfghjklmpqrstvwxz':
+        voyelle = 'u'
+        if texte[-1] in 'td':
+            voyelle = 'o'
+        texte = texte + voyelle
+    
+    return texte
+
+def est_japonais(texte):
+    """Vérifie si le texte contient des caractères japonais"""
+    for char in texte:
+        if '\u3040' <= char <= '\u30ff' or '\u4e00' <= char <= '\u9fff':
+            return True
+    return False
 
 def afficher_demo():
     print("=" * 50)
@@ -30,7 +70,8 @@ def afficher_demo():
 def mode_interactif():
     print("\nMODE INTERACTIF")
     print("-" * 50)
-    print("Tapez un mot en romaji, hiragana ou katakana")
+    print("Tapez un mot (romaji, nom europeen, ou japonais)")
+    print("Les noms europeens seront adaptes au japonais")
     print("Tapez :q! pour revenir au menu principal")
     print("-" * 50)
     
@@ -44,9 +85,14 @@ def mode_interactif():
         if not texte:
             continue
         
-        print(f"\n  Hiragana: {romkan.to_hiragana(texte)}")
-        print(f"  Katakana: {romkan.to_katakana(texte)}")
-        print(f"  Romaji:   {romkan.to_roma(texte)}")
+        if est_japonais(texte):
+            print(f"\n  Romaji:   {romkan.to_roma(texte)}")
+        else:
+            adapte = adapter_pour_japonais(texte)
+            if adapte != texte.lower():
+                print(f"\n  Adapte:   {texte} → {adapte}")
+            print(f"  Hiragana: {romkan.to_hiragana(adapte)}")
+            print(f"  Katakana: {romkan.to_katakana(adapte)}")
 
 if __name__ == "__main__":
     afficher_demo()
