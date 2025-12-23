@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 
 def afficher_menu():
     print("\n" + "=" * 50)
@@ -18,17 +19,17 @@ def main():
         
         if choix == "1":
             print("\n>>> Lancement de la demo Romkan...\n")
-            exec(open("demo_romkan.py").read())
+            subprocess.run([sys.executable, "demo_romkan.py"])
             input("\nAppuyez sur Entrée pour revenir au menu...")
             
         elif choix == "2":
             print("\n>>> Lancement de l'IME Japonais...\n")
-            exec(open("ime_japonais.py").read())
+            subprocess.run([sys.executable, "ime_japonais.py"])
             input("\nAppuyez sur Entrée pour revenir au menu...")
             
         elif choix == "3":
             print("\n>>> Lancement du Traducteur DeepL...\n")
-            exec(open("traducteur_deepl.py").read())
+            subprocess.run([sys.executable, "traducteur_deepl.py"])
             input("\nAppuyez sur Entrée pour revenir au menu...")
             
         elif choix == "4":
