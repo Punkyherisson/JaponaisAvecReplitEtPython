@@ -5,15 +5,18 @@ Ce module utilise gTTS (Google Text-to-Speech) pour convertir
 du texte japonais en audio parlé.
 
 Fonctionnalités:
+- Saisie en romaji avec conversion automatique
+- Prévisualisation du texte japonais avant génération
 - Lecture de texte japonais avec prononciation naturelle
 - Sauvegarde des fichiers audio en MP3
-- Mode interactif pour lire plusieurs textes
 
 Dépendances:
 - gtts : Google Text-to-Speech API
+- romkan : Conversion romaji vers kana
 """
 
 from gtts import gTTS
+import romkan
 import os
 
 # Dossier où sauvegarder les fichiers audio
@@ -121,25 +124,57 @@ def afficher_demo():
     print("=" * 60)
 
 
+def est_japonais(texte):
+    """
+    Vérifie si le texte contient des caractères japonais.
+    
+    Args:
+        texte: Le texte à vérifier
+        
+    Returns:
+        True si le texte contient des hiragana, katakana ou kanji
+    """
+    for char in texte:
+        # Hiragana: U+3040 - U+309F
+        # Katakana: U+30A0 - U+30FF
+        # Kanji: U+4E00 - U+9FFF
+        if '\u3040' <= char <= '\u30ff' or '\u4e00' <= char <= '\u9fff':
+            return True
+    return False
+
+
 def mode_interactif():
     """
     Mode interactif permettant à l'utilisateur de lire ses propres textes.
     
-    L'utilisateur peut entrer du texte japonais et obtenir un fichier MP3.
+    L'utilisateur peut entrer:
+    - Du texte japonais directement (hiragana, katakana, kanji)
+    - Du romaji qui sera converti en hiragana avec confirmation
+    
     Commandes spéciales:
     - :q! pour quitter
     - :list pour voir les fichiers générés
+    - :h pour hiragana (défaut)
+    - :k pour katakana
     """
     print("\nMODE INTERACTIF")
     print("-" * 60)
-    print("Entrez du texte japonais pour générer un fichier audio")
+    print("Entrez du texte en romaji OU en japonais")
+    print("Le romaji sera converti en kana avec confirmation")
+    print()
     print("Commandes:")
     print("  :q!   - Revenir au menu principal")
     print("  :list - Voir les fichiers audio générés")
+    print("  :h    - Mode hiragana (défaut)")
+    print("  :k    - Mode katakana")
     print("-" * 60)
     
+    # Mode de conversion par défaut
+    mode_kana = "hiragana"
+    
     while True:
-        texte = input("\nTexte japonais: ").strip()
+        indicateur = "ひ" if mode_kana == "hiragana" else "カ"
+        texte = input(f"\n[{indicateur}] Texte: ").strip()
         
         # Commande pour quitter
         if texte == ":q!":
@@ -151,17 +186,48 @@ def mode_interactif():
             lister_fichiers_audio()
             continue
         
+        # Commande pour changer de mode
+        if texte == ":h":
+            mode_kana = "hiragana"
+            print("  Mode: Hiragana")
+            continue
+        
+        if texte == ":k":
+            mode_kana = "katakana"
+            print("  Mode: Katakana")
+            continue
+        
         # Ignorer les entrées vides
         if not texte:
             continue
         
-        # Générer l'audio pour le texte entré
-        print("\n  Génération de l'audio...")
-        chemin = lire_texte_japonais(texte)
+        # Déterminer si c'est du japonais ou du romaji
+        if est_japonais(texte):
+            # Le texte est déjà en japonais, utiliser directement
+            texte_japonais = texte
+            print(f"\n  Texte détecté: {texte_japonais}")
+        else:
+            # C'est du romaji, convertir en kana
+            if mode_kana == "hiragana":
+                texte_japonais = romkan.to_hiragana(texte)
+            else:
+                texte_japonais = romkan.to_katakana(texte)
+            
+            print(f"\n  Romaji:   {texte}")
+            print(f"  Japonais: {texte_japonais}")
         
-        if chemin:
-            print(f"  Fichier créé: {chemin}")
-            print("  Téléchargez ce fichier pour l'écouter!")
+        # Demander confirmation avant de créer le fichier
+        confirmation = input("\n  Créer le fichier audio? (o/n): ").strip().lower()
+        
+        if confirmation in ['o', 'oui', 'y', 'yes', '']:
+            print("  Génération de l'audio...")
+            chemin = lire_texte_japonais(texte_japonais)
+            
+            if chemin:
+                print(f"  Fichier créé: {chemin}")
+                print("  Téléchargez ce fichier pour l'écouter!")
+        else:
+            print("  Annulé.")
 
 
 def lister_fichiers_audio():
