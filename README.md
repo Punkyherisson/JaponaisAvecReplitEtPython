@@ -19,6 +19,7 @@ Une suite complète d'outils Python pour apprendre et pratiquer le japonais. Con
 | **Pykakasi** | Obtenir la lecture (pronunciation) des kanji |
 | **Jamdict** | Dictionnaire japonais-anglais (200 000+ mots) |
 | **DeepL** | Traduire des phrases en japonais |
+| **Lecteur** | Écouter du texte japonais (text-to-speech) |
 
 ---
 
@@ -66,7 +67,8 @@ Vous verrez :
   3. Pykakasi (lecture des kanji)
   4. Jamdict (dictionnaire japonais)
   5. Traducteur DeepL (traduction vers japonais)
-  6. Quitter
+  6. Lecteur japonais (text-to-speech)
+  7. Quitter
 ```
 
 ### Commandes universelles
@@ -130,6 +132,18 @@ for entry in result.entries:
 #   - to eat
 ```
 
+### Text-to-Speech avec gTTS
+
+```python
+from gtts import gTTS
+
+# Créer un fichier audio à partir de texte japonais
+tts = gTTS("こんにちは、今日はいい天気ですね", lang="ja")
+tts.save("bonjour.mp3")
+
+# Le fichier MP3 peut être téléchargé et écouté
+```
+
 ### Adaptation des noms européens
 
 Le projet inclut une fonction pour adapter les noms européens au système phonétique japonais :
@@ -160,9 +174,10 @@ Pour utiliser le traducteur DeepL :
 |---------|---------|-------------|
 | `romkan` | >= 0.2.1 | Conversion romaji ↔ kana |
 | `pykakasi` | >= 2.2.1 | Lecture des kanji |
-| `jamdict` | >= 0.1.0 | Interface dictionnaire JMdict |
+| `jamdict` | >= 0.1a11 | Interface dictionnaire JMdict |
 | `jamdict-data` | >= 1.5 | Données JMdict (200k+ entrées) |
 | `requests` | >= 2.28 | Appels API HTTP |
+| `gtts` | >= 2.5.0 | Google Text-to-Speech |
 
 ---
 
@@ -175,6 +190,8 @@ Pour utiliser le traducteur DeepL :
 ├── demo_pykakasi.py     # Lecture des kanji
 ├── demo_jamdict.py      # Dictionnaire japonais
 ├── traducteur_deepl.py  # Traduction via API DeepL
+├── lecteur_japonais.py  # Text-to-speech avec gTTS
+├── audio_japonais/      # Fichiers audio générés
 ├── requirements.txt     # Dépendances Python
 └── README.md            # Ce fichier
 ```

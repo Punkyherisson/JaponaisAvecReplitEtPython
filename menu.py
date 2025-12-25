@@ -15,13 +15,14 @@ def afficher_menu():
     print("  3. Pykakasi (lecture des kanji)")
     print("  4. Jamdict (dictionnaire japonais)")
     print("  5. Traducteur DeepL (traduction vers japonais)")
-    print("  6. Quitter")
+    print("  6. Lecteur japonais (text-to-speech)")
+    print("  7. Quitter")
     print("\n" + "-" * 50)
 
 def main():
     while True:
         afficher_menu()
-        choix = input("Votre choix (1-6): ").strip()
+        choix = input("Votre choix (1-7): ").strip()
         
         if choix == "1":
             print("\n>>> Lancement de la demo Romkan...\n")
@@ -49,11 +50,16 @@ def main():
             input("\nAppuyez sur Entree pour revenir au menu...")
             
         elif choix == "6":
+            print("\n>>> Lancement du Lecteur Japonais...\n")
+            subprocess.run([sys.executable, "lecteur_japonais.py"])
+            input("\nAppuyez sur Entree pour revenir au menu...")
+            
+        elif choix == "7":
             print("\nAu revoir!")
             sys.exit(0)
             
         else:
-            print("\nChoix invalide. Veuillez entrer 1, 2, 3, 4, 5 ou 6.")
+            print("\nChoix invalide. Veuillez entrer 1, 2, 3, 4, 5, 6 ou 7.")
 
 if __name__ == "__main__":
     main()

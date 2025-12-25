@@ -1,0 +1,192 @@
+"""
+Lecteur de texte japonais (Text-to-Speech)
+-------------------------------------------
+Ce module utilise gTTS (Google Text-to-Speech) pour convertir
+du texte japonais en audio parlé.
+
+Fonctionnalités:
+- Lecture de texte japonais avec prononciation naturelle
+- Sauvegarde des fichiers audio en MP3
+- Mode interactif pour lire plusieurs textes
+
+Dépendances:
+- gtts : Google Text-to-Speech API
+"""
+
+from gtts import gTTS
+import os
+
+# Dossier où sauvegarder les fichiers audio
+DOSSIER_AUDIO = "audio_japonais"
+
+
+def creer_dossier_audio():
+    """
+    Crée le dossier de sauvegarde des fichiers audio s'il n'existe pas.
+    """
+    if not os.path.exists(DOSSIER_AUDIO):
+        os.makedirs(DOSSIER_AUDIO)
+        print(f"  Dossier '{DOSSIER_AUDIO}/' créé.")
+
+
+def generer_nom_fichier(texte):
+    """
+    Génère un nom de fichier basé sur le texte (les 10 premiers caractères).
+    
+    Args:
+        texte: Le texte japonais à convertir
+        
+    Returns:
+        Un nom de fichier unique avec extension .mp3
+    """
+    # Prendre les premiers caractères du texte pour le nom
+    base = texte[:10].replace(" ", "_").replace("/", "_")
+    # Compter les fichiers existants pour éviter les doublons
+    compteur = len([f for f in os.listdir(DOSSIER_AUDIO) if f.endswith('.mp3')]) + 1
+    return f"{compteur:03d}_{base}.mp3"
+
+
+def lire_texte_japonais(texte, sauvegarder=True):
+    """
+    Convertit un texte japonais en audio avec gTTS.
+    
+    Cette fonction utilise l'API Google Text-to-Speech pour générer
+    un fichier audio MP3 à partir du texte japonais fourni.
+    
+    Args:
+        texte: Le texte japonais à lire (peut contenir kanji, hiragana, katakana)
+        sauvegarder: Si True, sauvegarde le fichier dans le dossier audio
+        
+    Returns:
+        Le chemin du fichier audio créé, ou None en cas d'erreur
+    """
+    try:
+        # Créer l'objet TTS avec la langue japonaise
+        # lang="ja" indique à Google d'utiliser la voix japonaise
+        tts = gTTS(text=texte, lang="ja")
+        
+        # Déterminer le chemin du fichier
+        if sauvegarder:
+            creer_dossier_audio()
+            nom_fichier = generer_nom_fichier(texte)
+            chemin = os.path.join(DOSSIER_AUDIO, nom_fichier)
+        else:
+            chemin = "temp_audio.mp3"
+        
+        # Sauvegarder le fichier audio
+        tts.save(chemin)
+        
+        return chemin
+        
+    except Exception as e:
+        print(f"  ERREUR: {e}")
+        return None
+
+
+def afficher_demo():
+    """
+    Démonstration du lecteur avec des exemples de phrases japonaises.
+    """
+    print("=" * 60)
+    print("   LECTEUR JAPONAIS - Text-to-Speech avec gTTS")
+    print("=" * 60)
+    print("\nCe module convertit du texte japonais en audio parlé.")
+    print("Les fichiers sont sauvegardés dans le dossier 'audio_japonais/'")
+    print("-" * 60)
+    
+    # Exemples de phrases à lire
+    exemples = [
+        ("こんにちは", "Bonjour"),
+        ("ありがとうございます", "Merci beaucoup"),
+        ("日本語を勉強しています", "J'étudie le japonais"),
+        ("今日はいい天気ですね", "Il fait beau aujourd'hui"),
+    ]
+    
+    print("\nExemples de génération audio:")
+    print("-" * 60)
+    
+    for japonais, francais in exemples:
+        print(f"\n  Texte: {japonais}")
+        print(f"  Sens:  {francais}")
+        
+        # Générer l'audio
+        chemin = lire_texte_japonais(japonais)
+        
+        if chemin:
+            print(f"  Audio: {chemin}")
+    
+    print("\n" + "=" * 60)
+    print(f"Les fichiers audio ont été sauvegardés dans '{DOSSIER_AUDIO}/'")
+    print("Vous pouvez les télécharger et les écouter sur votre appareil.")
+    print("=" * 60)
+
+
+def mode_interactif():
+    """
+    Mode interactif permettant à l'utilisateur de lire ses propres textes.
+    
+    L'utilisateur peut entrer du texte japonais et obtenir un fichier MP3.
+    Commandes spéciales:
+    - :q! pour quitter
+    - :list pour voir les fichiers générés
+    """
+    print("\nMODE INTERACTIF")
+    print("-" * 60)
+    print("Entrez du texte japonais pour générer un fichier audio")
+    print("Commandes:")
+    print("  :q!   - Revenir au menu principal")
+    print("  :list - Voir les fichiers audio générés")
+    print("-" * 60)
+    
+    while True:
+        texte = input("\nTexte japonais: ").strip()
+        
+        # Commande pour quitter
+        if texte == ":q!":
+            print("Retour au menu...")
+            break
+        
+        # Commande pour lister les fichiers
+        if texte == ":list":
+            lister_fichiers_audio()
+            continue
+        
+        # Ignorer les entrées vides
+        if not texte:
+            continue
+        
+        # Générer l'audio pour le texte entré
+        print("\n  Génération de l'audio...")
+        chemin = lire_texte_japonais(texte)
+        
+        if chemin:
+            print(f"  Fichier créé: {chemin}")
+            print("  Téléchargez ce fichier pour l'écouter!")
+
+
+def lister_fichiers_audio():
+    """
+    Affiche la liste des fichiers audio générés.
+    """
+    if not os.path.exists(DOSSIER_AUDIO):
+        print("\n  Aucun fichier audio généré pour le moment.")
+        return
+    
+    fichiers = [f for f in os.listdir(DOSSIER_AUDIO) if f.endswith('.mp3')]
+    
+    if not fichiers:
+        print("\n  Aucun fichier audio généré pour le moment.")
+        return
+    
+    print(f"\n  Fichiers dans '{DOSSIER_AUDIO}/':")
+    print("-" * 40)
+    for f in sorted(fichiers):
+        chemin = os.path.join(DOSSIER_AUDIO, f)
+        taille = os.path.getsize(chemin) / 1024  # Taille en KB
+        print(f"    {f} ({taille:.1f} KB)")
+
+
+# Point d'entrée du script
+if __name__ == "__main__":
+    afficher_demo()
+    mode_interactif()

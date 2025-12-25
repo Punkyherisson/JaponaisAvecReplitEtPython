@@ -10,6 +10,7 @@ Une suite d'outils Python pour apprendre et pratiquer le japonais. Ce projet ras
 - `demo_pykakasi.py` - Lecture des kanji (conversion kanji vers romaji)
 - `demo_jamdict.py` - Dictionnaire japonais-anglais (200 000+ mots)
 - `traducteur_deepl.py` - Traducteur vers le japonais via API DeepL
+- `lecteur_japonais.py` - Text-to-speech avec gTTS
 
 ## Fonctionnalités
 
@@ -20,6 +21,7 @@ Une suite d'outils Python pour apprendre et pratiquer le japonais. Ce projet ras
 | 3 | Pykakasi | Lire les kanji (obtenir la prononciation) |
 | 4 | Jamdict | Dictionnaire japonais-anglais avec definitions |
 | 5 | DeepL | Traduire des phrases en japonais |
+| 6 | Lecteur | Écouter du texte japonais (text-to-speech) |
 
 ## Dépendances
 - Python 3.11
