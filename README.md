@@ -138,10 +138,22 @@ for entry in result.entries:
 from gtts import gTTS
 
 # Créer un fichier audio à partir de texte japonais
-tts = gTTS("こんにちは、今日はいい天気ですね", lang="ja")
+tts = gTTS("こんにちは", lang="ja")
 tts.save("bonjour.mp3")
 
 # Le fichier MP3 peut être téléchargé et écouté
+```
+
+Le lecteur accepte aussi le **romaji** avec conversion et confirmation :
+
+```
+[ひ] Texte: arigatou gozaimasu
+
+  Romaji:   arigatou gozaimasu
+  Japonais: ありがとうございます
+
+  Créer le fichier audio? (o/n): o
+  Fichier créé: audio_japonais/001_ありがとうございま.mp3
 ```
 
 ### Adaptation des noms européens

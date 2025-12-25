@@ -97,12 +97,10 @@ def afficher_demo():
     print("Les fichiers sont sauvegardés dans le dossier 'audio_japonais/'")
     print("-" * 60)
     
-    # Exemples de phrases à lire
+    # Exemples de phrases à lire (2 exemples seulement)
     exemples = [
         ("こんにちは", "Bonjour"),
         ("ありがとうございます", "Merci beaucoup"),
-        ("日本語を勉強しています", "J'étudie le japonais"),
-        ("今日はいい天気ですね", "Il fait beau aujourd'hui"),
     ]
     
     print("\nExemples de génération audio:")
